@@ -3,7 +3,6 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Support.UI;
 
 namespace Puncher
 {
@@ -14,6 +13,12 @@ namespace Puncher
     private readonly string _browser;
     private readonly IWebDriver _driver;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="username">Username</param>
+    /// <param name="password">Password</param>
+    /// <param name="browser">Browser</param>
     public Punch(string username, string password, string browser)
     {
       _username = username;
@@ -36,16 +41,25 @@ namespace Puncher
       }
     }
 
+    /// <summary>
+    /// Punch in
+    /// </summary>
     public void In()
     {
       It();
     }
 
+    /// <summary>
+    /// Punch out
+    /// </summary>
     public void Out()
     {
       It();
     }
 
+    /// <summary>
+    /// Generic punch
+    /// </summary>
     private void It()
     {
       _driver.Navigate().GoToUrl("http://timeclock/Login.aspx");
@@ -67,6 +81,10 @@ namespace Puncher
       _driver.Quit();
     }
 
+    /// <summary>
+    /// Wait for some time
+    /// </summary>
+    /// <param name="seconds">Time in seconds</param>
     private static void Wait(int seconds)
     {
       Thread.Sleep(TimeSpan.FromSeconds(seconds));

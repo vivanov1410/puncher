@@ -18,12 +18,13 @@ namespace Puncher
       var help = new HelpText
       {
         Heading = new HeadingInfo(AppSettings.AppName, AppSettings.AppVersion),
-        Copyright = new CopyrightInfo("FYidoctors", DateTime.Today.Year),
+        Copyright = new CopyrightInfo("Viacheslav Ivanov", DateTime.Today.Year),
         AdditionalNewLineAfterOption = true,
         AddDashesToOption = true
       };
       help.AddPreOptionsLine("Usage: app <option>");
       help.AddOptions(this);
+
       return help;
     }
   }
