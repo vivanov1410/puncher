@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Puncher
 {
@@ -9,9 +10,8 @@ namespace Puncher
       try
       {
         var options = new Options();
-        if (!CommandLine.Parser.Default.ParseArguments(args, options))
+        if (!CommandLine.Parser.Default.ParseArgumentsStrict(args, options))
         {
-          options.GetUsage();
           Environment.Exit(1);
         }
 
@@ -19,10 +19,20 @@ namespace Puncher
 
         if (options.In)
         {
+          if (options.Delay > 0)
+          {
+            WaitRandomly(options.Delay);
+          }
+
           punch.In();
         }
         else if (options.Out)
         {
+          if (options.Delay > 0)
+          {
+            WaitRandomly(options.Delay);
+          }
+
           punch.Out();
         }
       }
@@ -33,6 +43,18 @@ namespace Puncher
       }
 
       Environment.Exit(0);
+    }
+
+    /// <summary>
+    /// Wait randomly for some time in minutes
+    /// </summary>
+    /// <param name="seconds">Time in seconds</param>
+    private static void WaitRandomly(int minutes)
+    {
+      var random = new Random();
+      var delay = random.Next(minutes);
+
+      Thread.Sleep(TimeSpan.FromMinutes(delay));
     }
   }
 }
